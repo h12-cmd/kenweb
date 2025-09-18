@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MediaFire Clone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        form.upload-form {
+            margin-bottom: 30px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        form.delete-form {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <h1>MediaFire Clone</h1>
+    
+    <h2>Tải file lên</h2>
+    <form class="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Tải lên</button>
+    </form>
+
+    <h2>Danh sách file</h2>
+    <ul>
+        {% for file in files %}
+            <li>
+                <a href="/uploads/{{ file }}">{{ file }}</a>
+                {% if file in my_files %}
+                <form class="delete-form" action="/delete/{{ file }}" method="post">
+                    <button type="submit">Xóa</button>
+                </form>
+                {% endif %}
+            </li>
+        {% else %}
+            <li>Chưa có file nào</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
